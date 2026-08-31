@@ -1,0 +1,103 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newProductModal">New Product</button>
+
+<div class="container">
+    @if (Model.Products.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Category</td>
+                        <td>@product.Quantity</td>
+                        <td>@product.UnitPrice.ToString("C")</td>
+                        <td>@product.TotalValue.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No products available.</p>
+    }
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="newProductModal" aria-labelledby="newProductModalLabel">
+    <div class="modal-dialog" role="document">
+        <form method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newProductModalLabel">New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="Product.Name"></label>
+                        <input asp-for="Product.Name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.Category"></label>
+                        <input asp-for="Product.Category" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.Quantity"></label>
+                        <input asp-for="Product.Quantity" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Product.UnitPrice"></label>
+                        <input asp-for="Product.UnitPrice" type="number" step="any" class="form-control" />
+                        @section Scripts {
+                            <script>
+                                document.getElementById("unitPrice").addEventListener("keypress", function(e) {
+                                    const char = e.which ? e.which : e.keyCode;
+
+                                    if (charCode < 32) return;
+
+                                    const charStr = String.fromCharCode(char);
+
+                                    if (!/[0-9,.]+$/.test(charStr)) {
+                                        e.preventDefault();
+                                        return;
+                                    }
+
+                                    if ((charStr === '.' || charStr === ',') && this.value.includes(charStr)) {
+                                        e.preventDefault();
+                                    }
+                                });
+
+                                document.getElementById("unitPrice").addEventListener("paste", function(e) {
+                                    const pasteData = (e.clipboardData || window.clipboardData).getData('text');
+                                    if (!/^\d+([,.]\d+)?$/.test(pasteData)){
+                                        e.preventDefault();
+                                    }
+                                });
+                            </script>
+                        }
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

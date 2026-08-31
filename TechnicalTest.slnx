@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/Back/">
+    <Project Path="Application/Application.csproj" />
+    <Project Path="Domain/Domain.csproj" />
+    <Project Path="Infrastructure/Infrastructure.csproj" />
+    <Project Path="WebAPI/WebAPI.csproj" />
+  </Folder>
+  <Folder Name="/Front/">
+    <Project Path="FrontRazor/FrontRazor.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="ProducTests/ProducTests.csproj" Id="97f84b3a-bc50-4466-a8ab-23366c6deff4" />
+  </Folder>
+</Solution>
