@@ -2,7 +2,9 @@
 ### Prueba tecnica del mini inventario
 
 .NET 10 SDK
+
 SQL Server (por defecto: localhost\SQLEXPRESS con autenticación de Windows)
+
 Herramienta global de EF Core: dotnet tool install --global dotnet-ef
 
 La base de datos NO se crea sola. Antes de arrancar, ejecuta una vez:
